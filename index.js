@@ -1,8 +1,5 @@
-const { Calculus } = require("./utils/calculus");
-const { Proba } = require("./utils/probability");
+const { Date } = require("./utils/formatDate.js");
 
-let test = ["blue","blue","blue","blue","red","blue","red","red","green"]
+let data = new Date()
 
-let result = Proba.frequency(test)
-
-console.log(result)
+console.log(data.formatShort("","yD"))

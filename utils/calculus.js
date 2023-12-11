@@ -1,7 +1,8 @@
 class Calculus {
     /**
      * 
-     * @param {number[]} arr 
+     * @param {number[]} arr
+     * 
      * @returns {number}
      */
     static sum(arr) {
@@ -15,7 +16,8 @@ class Calculus {
 
     /**
      * 
-     * @param {number[]} arr 
+     * @param {number[]} arr
+     * 
      * @returns {number}
      */
     static average(arr) {
@@ -24,7 +26,8 @@ class Calculus {
 
     /**
      * 
-     * @param {number[]} arr 
+     * @param {number[]} arr
+     * 
      * @returns {number}
      */
     static median(arr) {
@@ -50,8 +53,9 @@ class Calculus {
      */
 
     /**
+     * Return a list of informations about the data
+     * @param {number[]} arr
      * 
-     * @param {number[]} arr 
      * @returns {Summary}
      */
     static summary(arr) {

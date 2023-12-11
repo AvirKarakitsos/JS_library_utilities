@@ -1,8 +1,10 @@
 class Proba {
     /**
+     * Draw with replacement
+     * @param {Array<(number|string)>} arr 
+     * @param {Number} nbr number of draws
      * 
-     * @param {number[]} arr 
-     * @returns {Array}
+     * @returns {Array<(number|string)>}
      */
     static withReplacement(arr, nbr) {
         let result = []
@@ -17,9 +19,10 @@ class Proba {
     }
 
     /**
+     * Frequency of each element
+     * @param {Array<(number|string)>} arr 
      * 
-     * @param {number[]} arr 
-     * @returns
+     * @returns {Object}
      */
     static frequency(arr) {
         let obj = arr.reduce((total,current)=> {
@@ -35,9 +38,11 @@ class Proba {
     }
 
     /**
+     * Draw without replacement
+     * @param {Array<(number|string)>} arr 
+     * @param {Number} draw draw n elements simultaneous 
      * 
-     * @param {number[]} arr 
-     * @returns {Array}
+     * @returns {Array<(number|string)>}
      */
     static withoutReplacement(arr,draw=null) {
         if(draw > arr.length) {
