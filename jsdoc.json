@@ -3,5 +3,8 @@
         "include": ["utils"],
         "includePattern": ".js$",
         "excludePattern": "node_modules"
+    },
+    "opts": {
+        "template": "custom-template"
     }
 }
