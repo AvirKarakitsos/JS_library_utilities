@@ -1,3 +1,8 @@
+/**
+ * Descriptive statistics
+ * @class Calculus
+ */
+
 class Calculus {
     /**
      * Calcul the sum of an array
@@ -53,7 +58,7 @@ class Calculus {
      */
 
     /**
-     * Return a list of informations about the data
+     * Return a list of  statistics informations about the data
      * @param {number[]} arr
      * 
      * @returns {Summary}

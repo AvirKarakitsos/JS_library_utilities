@@ -1,3 +1,8 @@
+/**
+ * Probability
+ * @class Proba
+ */
+
 class Proba {
     /**
      * Draw n times with replacement

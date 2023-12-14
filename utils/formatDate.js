@@ -2,6 +2,10 @@ const days = ["Dimanche","Lundi","Mardi","Mercredi","Jeudi","Vendredi", "Samedi"
 
 const months = ["Janvier","Février","Mars","Avril","Mai","Juin","Juillet","Août","Septembre","Octobre","Novembre","Décembre"]
 
+/**
+ * Format style
+ * @module Format
+ */
 
 /**
  * Format a date

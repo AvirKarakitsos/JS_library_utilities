@@ -1,0 +1,7 @@
+{
+    "source": {
+        "include": ["utils"],
+        "includePattern": ".js$",
+        "excludePattern": "node_modules"
+    }
+}
