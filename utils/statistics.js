@@ -1,9 +1,9 @@
 /**
  * Descriptive statistics
- * @class Calculus
+ * @class Statistics
  */
 
-class Calculus {
+class Statistics {
     /**
      * Calcul the sum of an array
      * @param {number[]} arr
@@ -86,4 +86,4 @@ class Calculus {
     }
 }
 
-module.exports = {Calculus}
+module.exports = {Statistics}
