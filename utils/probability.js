@@ -1,16 +1,16 @@
 class Proba {
     /**
-     * Draw with replacement
-     * @param {Array<(number|string)>} arr 
-     * @param {Number} nbr number of draws
+     * Draw n times with replacement
+     * @param {Array.<number|string>} arr sample used for the draws
+     * @param {Number} n number of draws
      * 
-     * @returns {Array<(number|string)>}
+     * @returns {Array.<number|string>}
      */
-    static withReplacement(arr, nbr) {
+    static withReplacement(arr, n) {
         let result = []
         let indice = null
         
-        for(let i=0; i<nbr; i++) {
+        for(let i=0; i<n; i++) {
             indice = Math.floor(Math.random() * arr.length)
             result.push(arr[indice])
         }
@@ -19,8 +19,8 @@ class Proba {
     }
 
     /**
-     * Frequency of each element
-     * @param {Array<(number|string)>} arr 
+     * Frequency of each unique element in an array
+     * @param {Array.<(number|string)>} arr sample used for the draws
      * 
      * @returns {Object}
      */
@@ -39,14 +39,14 @@ class Proba {
 
     /**
      * Draw without replacement
-     * @param {Array<(number|string)>} arr 
-     * @param {Number} draw draw n elements simultaneous 
+     * @param {Array.<(number|string)>} arr sample used for the draw
+     * @param {Number} draw draw n elements simultaneously 
      * 
-     * @returns {Array<(number|string)>}
+     * @returns {Array.<(number|string)>}
      */
     static withoutReplacement(arr,draw=null) {
         if(draw > arr.length) {
-            throw Error("Second argument must be less than the length of array")
+            throw Error("Second argument must be less than the length of the array")
         }
     
         let size = null

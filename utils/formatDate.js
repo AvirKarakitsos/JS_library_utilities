@@ -4,13 +4,13 @@ const months = ["Janvier","Février","Mars","Avril","Mai","Juin","Juillet","Aoû
 
 
 /**
- * 
- * @param {string} format y:year, m:month, d:day, D:date
+ * Format a date
+ * @param {Date} date the date you want to format
+ * @param {string} [format] y:year, m:month, d:day, D:date
  *  
  * @returns {string} 
  */
-Date.prototype.formatLong = function(format) {
-    let date = new Date()
+exports.formatLong = function(date, format) {
     let formatDate = ""
 
     if(format) {
@@ -43,14 +43,13 @@ Date.prototype.formatLong = function(format) {
 
 /**
  * Example: 31/12/2023 with space = "/"
+ * @param {Date} date date you want to format
  * @param {string} space space between element
- * 
- * @param {string} format y:year, m:month, D:date
+ * @param {string} [format] y:year, m:month, D:date
  *  
  * @returns {string} 
  */
-Date.prototype.formatShort = function(space,format) {
-    let date = new Date()
+exports.formatShort = function(date,space,format) {
 
     if(format) {
         let arrFormat = format.split("")
@@ -83,5 +82,3 @@ Date.prototype.formatShort = function(space,format) {
         return `${date.getDate()}${space}${date.getMonth()+1}${space}${date.getFullYear()}`
     }
 }
-
-module.exports = {Date}

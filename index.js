@@ -1,5 +1,7 @@
-const { Date } = require("./utils/formatDate.js");
+const { formatLong, formatShort } = require("./utils/formatDate");
 
-let data = new Date()
+const d = new Date(2021, 6, 25);
 
-console.log(data.formatShort("","yD"))
+const res = formatShort(d," ")
+
+console.log(res)

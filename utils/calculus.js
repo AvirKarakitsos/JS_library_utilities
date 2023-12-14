@@ -1,6 +1,6 @@
 class Calculus {
     /**
-     * 
+     * Calcul the sum of an array
      * @param {number[]} arr
      * 
      * @returns {number}
@@ -15,7 +15,7 @@ class Calculus {
     }
 
     /**
-     * 
+     * Calcul the average of an array
      * @param {number[]} arr
      * 
      * @returns {number}
@@ -25,7 +25,7 @@ class Calculus {
     }
 
     /**
-     * 
+     * Calcul the median of an array
      * @param {number[]} arr
      * 
      * @returns {number}
