@@ -108,3 +108,13 @@ exports.titleUpperCase = function(title,option=false) {
 
     return result.join(" ")
 }
+
+/**
+ * Example: 31/12/2023 with space = "/"
+ * @param {Date} time date you want to format
+ * @param {string} space space between element
+ *  
+ */
+exports.timeFormat = function(time,space) {
+    return time.getHours()+space+time.getMinutes()+space+time.getSeconds()
+}
