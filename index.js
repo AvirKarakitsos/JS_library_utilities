@@ -1,8 +1,8 @@
 //@ts-check
 
-const { timeFormat } = require("./utils/format")
+const { compareDates } = require("./utils/format")
 
-const heure = new Date()
-let res = timeFormat(heure,":")
-
-console.log(res)
+const date1 = new Date("1995-12-19T03:24:00")
+const date2 = new Date("1995-12-17T03:24:00")
+let res = compareDates(date1,date2)
+console.log(typeof res)

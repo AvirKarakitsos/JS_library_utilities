@@ -118,3 +118,17 @@ exports.titleUpperCase = function(title,option=false) {
 exports.timeFormat = function(time,space) {
     return time.getHours()+space+time.getMinutes()+space+time.getSeconds()
 }
+
+/**
+ * Compare two dates
+ * @param {Date} date1
+ * @param {Date} date2
+ *  
+ * @returns {number} 
+ */
+exports.compareDates = function(date1,date2) {
+    let ms = Math.abs(date1.getTime() - date2.getTime())
+    let dist = 1000*60*60*24
+    let days = ms /dist
+    return Math.trunc(days)
+}
