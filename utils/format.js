@@ -46,44 +46,67 @@ exports.formatLong = function(date, format) {
 }
 
 /**
+ * @typedef {Object} format
+ * @property {string} [date] "y:year, m:month; D:date"
+ * @property {string} [space] space between elements
+ * @property {boolean} [zero] 
+*/
+
+/**
  * Example: 31/12/2023 with space = "/"
  * @param {Date} date date you want to format
- * @param {string} space space between element
- * @param {string} [format] y:year, m:month, D:date
+ * @param {format} [format]
  *  
  * @returns {string} 
  */
-exports.formatShort = function(date,space,format) {
+exports.formatShort = function(date, format={date: "Dmy", space:"" , zero:false}) {
+    /** 
+     *Add an optional zero to a number less than ten 
+     * @param {number} nbr
+     *   
+     * @returns {string} 
+    */
+    
+    function getZero(nbr) {
+        if(nbr < 10) {
+            return "0"+nbr.toString()
+        }
+    }
+    
+    if(!format.space) format.space = ""
 
-    if(format) {
-        let arrFormat = format.split("")
+    if(format.date) {
+        let arrFormat = format.date.split("")
         let formatDate = ""
 
         for (let element of arrFormat) {
             switch(element) {
                 case "y": 
-                    formatDate += space+date.getFullYear()
+                    formatDate += format.space+date.getFullYear()
                     break
-                case "m": 
-                    formatDate += space+date.getMonth()
+                case "m":
+                    if(format.zero) formatDate += format.space + getZero((date.getMonth() + 1))
+                    else formatDate += format.space + (date.getMonth() + 1)
                     break
                 case "D": 
-                    formatDate += space+date.getDate()
+                    if(format.zero) formatDate += format.space + getZero(date.getDate())
+                    else formatDate += format.space + date.getDate()
                     break
                 default:
                     throw Error("element not defined")
             }
         }
 
-        if(space === " ") return formatDate.trim()
-        else if(space !== ""){
+        if(format.space === " ") return formatDate.trim()
+        else if(format.space !== ""){
             let step = formatDate.split("")
             step.shift()
             let result = step.join("")
             return result
         } else return formatDate
     } else {
-        return `${date.getDate()}${space}${date.getMonth()+1}${space}${date.getFullYear()}`
+        if(format.zero) return `${getZero(date.getDate())}${format.space}${getZero(date.getMonth()+1)}${format.space}${date.getFullYear()}`
+        else return `${date.getDate()}${format.space}${date.getMonth()+1}${format.space}${date.getFullYear()}`
     }
 }
 
@@ -124,11 +147,18 @@ exports.timeFormat = function(time,space) {
  * @param {Date} date1
  * @param {Date} date2
  *  
- * @returns {number} 
+ * @returns {Object} 
  */
 exports.compareDates = function(date1,date2) {
     let ms = Math.abs(date1.getTime() - date2.getTime())
-    let dist = 1000*60*60*24
-    let days = ms /dist
-    return Math.trunc(days)
+    let days = Math.trunc(ms /(1000*60*60*24))
+    let hours = Math.trunc(ms /(1000*60*60)) - (24*days)
+    let min = Math.trunc(ms /(1000*60)) - (24*60*days + 60*hours)
+    let sec = Math.trunc(ms /1000) - (24*60*60*days + 60*60*hours + 60*min)
+    return {
+        sec,
+        min,
+        hours,
+        days
+    }
 }
