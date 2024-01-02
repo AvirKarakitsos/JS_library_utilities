@@ -3,8 +3,8 @@ const days = ["Dimanche","Lundi","Mardi","Mercredi","Jeudi","Vendredi", "Samedi"
 const months = ["Janvier","Février","Mars","Avril","Mai","Juin","Juillet","Août","Septembre","Octobre","Novembre","Décembre"]
 
 /**
- * Format style
- * @module Format
+ * 
+ * @module Format Date
  */
 
 /**
@@ -53,20 +53,20 @@ exports.formatLong = function(date, format) {
 */
 
 /**
- * Example: 31/12/2023 with space = "/"
+ * Example: 25/09/2023 with optional object {date: "Dmy", space:"/" , zero:true}
  * @param {Date} date date you want to format
- * @param {format} [format]
+ * @param {format} [format] optional parameter
  *  
  * @returns {string} 
  */
 exports.formatShort = function(date, format={date: "Dmy", space:"" , zero:false}) {
+    
     /** 
      *Add an optional zero to a number less than ten 
      * @param {number} nbr
      *   
      * @returns {string} 
     */
-    
     function getZero(nbr) {
         if(nbr < 10) {
             return "0"+nbr.toString()
@@ -108,28 +108,6 @@ exports.formatShort = function(date, format={date: "Dmy", space:"" , zero:false}
         if(format.zero) return `${getZero(date.getDate())}${format.space}${getZero(date.getMonth()+1)}${format.space}${date.getFullYear()}`
         else return `${date.getDate()}${format.space}${date.getMonth()+1}${format.space}${date.getFullYear()}`
     }
-}
-
-/**
- * Transform the first letter of each word into uppercase
- * @param {string} title title to transform
- * @param {boolean} [option] exclude a list of word
- * 
- * @returns {string} 
- */
-exports.titleUpperCase = function(title,option=false) {
-    let excludes = ["le","la","les","de","des","l'","of"]
-    let words = title.split(" ")
-    let result = []
-    words.map((word,index) => {
-        let transform = ""
-        option ?
-            ((excludes.includes(word)) && (index !== 0)) ? transform = word : transform = word.toUpperCase()[0]+word.slice(1)
-           : transform = word.toUpperCase()[0]+word.slice(1)
-        result.push(transform)
-    })
-
-    return result.join(" ")
 }
 
 /**
