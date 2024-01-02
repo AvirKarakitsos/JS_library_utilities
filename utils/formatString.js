@@ -1,12 +1,12 @@
 /**
- * 
+ * Format a String object
  * @module Format String
  */
 
 /**
  * Transform the first letter of each word into uppercase
  * @param {string} title title to transform
- * @param {boolean} [option] exclude a list of word
+ * @param {boolean} [option] exclude a list of word : ["le","la","les","de","des","l'","of"]
  * 
  * @returns {string} 
  */

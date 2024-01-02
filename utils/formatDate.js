@@ -3,14 +3,14 @@ const days = ["Dimanche","Lundi","Mardi","Mercredi","Jeudi","Vendredi", "Samedi"
 const months = ["Janvier","Février","Mars","Avril","Mai","Juin","Juillet","Août","Septembre","Octobre","Novembre","Décembre"]
 
 /**
- * 
+ * Format a Date object
  * @module Format Date
  */
 
 /**
- * Format a date
+ * This function will return a complete format of a date
  * @param {Date} date the date you want to format
- * @param {string} [format] y:year, m:month, d:day, D:date
+ * @param {string} [format] optional parameter with y:year, m:month, d:day, D:date
  *  
  * @returns {string} 
  */
@@ -53,7 +53,7 @@ exports.formatLong = function(date, format) {
 */
 
 /**
- * Example: 25/09/2023 with optional object {date: "Dmy", space:"/" , zero:true}
+ * formatShort will return a short fomat of a date. For example: 25/09/2023 with optional object {date: "Dmy", space:"/" , zero:true}
  * @param {Date} date date you want to format
  * @param {format} [format] optional parameter
  *  
@@ -111,9 +111,11 @@ exports.formatShort = function(date, format={date: "Dmy", space:"" , zero:false}
 }
 
 /**
- * Example: 31/12/2023 with space = "/"
- * @param {Date} time date you want to format
+ * timeFormat will only return the hours, minutes and secondes of a Date object  
+ * @param {Date} time date you want to extract time
  * @param {string} space space between element
+ * 
+ * @returns {string}
  *  
  */
 exports.timeFormat = function(time,space) {
@@ -121,11 +123,11 @@ exports.timeFormat = function(time,space) {
 }
 
 /**
- * Compare two dates
+ * It will compute the time between two Date objects
  * @param {Date} date1
  * @param {Date} date2
  *  
- * @returns {Object} 
+ * @returns {Object} {sec, min, hours, days}
  */
 exports.compareDates = function(date1,date2) {
     let ms = Math.abs(date1.getTime() - date2.getTime())
