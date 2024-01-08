@@ -1,10 +1,18 @@
 //@ts-check
 
-const { compareDates, formatShort } = require("./utils/format")
+const { pagination } = require("./utils/pagination")
 
-const date1 = new Date("1995-07-09T03:24:07")
-const date2 = new Date("1995-12-19T05:50:07")
-let res = compareDates(date1,date2)
+const arr = [
+    {name: "Arno", age: 33},
+    {name: "Anna", age: 21},
+    {name: "Kioss", age: 31},
+    {name: "Kioss", age: 31},
+    {name: "test", age: 31},
+    {name: "autre", age: 31},
+    {name: "Kabcioss", age: 31},
+    {name: "Le Kram", age: 33}
+]
 
-let test = formatShort(date1,{space:" ", date:"ymD",zero:false})
-console.log(test)
+const res= pagination(arr,2,3)
+
+console.log(res.data)
