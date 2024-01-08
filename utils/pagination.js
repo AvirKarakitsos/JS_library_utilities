@@ -1,16 +1,23 @@
 /**
+ * Build an array of items corresponding to the number of pages we want 
+ * @module Pagination
+ */
+
+/**
  * @typedef {Object} PageInfo
  * @property {Array} data
  * @property {number} numberPages - Number of pages
  * 
- * Return the data corresponding of the page argument and containing itemPerPage elements
+ */
+
+/**
+ * Return the data corresponding of the page argument. It contains itemPerPage elements
  * @param {Array} data 
  * @param {number} page 
  * @param {number} itemPerPage
  * 
  * @returns {PageInfo}
  */
-
 exports.pagination = (data, page, itemPerPage) => {
     let numberPages = data.length / itemPerPage
     let copyData = null
