@@ -18,7 +18,7 @@
  * 
  * @returns {PageInfo}
  */
-exports.pagination = (data, page, itemPerPage) => {
+function pagination(data, page, itemPerPage) {
     let numberPages = data.length / itemPerPage
     let copyData = null
 
@@ -38,3 +38,5 @@ exports.pagination = (data, page, itemPerPage) => {
         }
     }
 }
+
+export {pagination}

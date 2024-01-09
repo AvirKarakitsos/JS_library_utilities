@@ -72,4 +72,4 @@ class Proba {
     }
 }
  
-module.exports = {Proba}
+export {Proba}

@@ -86,4 +86,4 @@ class Statistics {
     }
 }
 
-module.exports = {Statistics}
+export {Statistics}

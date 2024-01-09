@@ -4,12 +4,16 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "doc": "jsdoc -c jsdoc.json"
+    "doc": "jsdoc -c jsdoc.json",
+    "js": "rollup --config",
+    "clone": "wget https://raw.githubusercontent.com/AvirKarakitsos/portfolio/main/style.css"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "jsdoc": "^4.0.2"
+    "@rollup/plugin-multi-entry": "^6.0.1",
+    "jsdoc": "^4.0.2",
+    "rollup": "^4.9.4"
   }
 }

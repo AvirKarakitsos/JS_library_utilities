@@ -14,7 +14,7 @@ const months = ["Janvier","Février","Mars","Avril","Mai","Juin","Juillet","Aoû
  *  
  * @returns {string} 
  */
-exports.formatLong = function(date, format) {
+function formatLong(date, format) {
     let formatDate = ""
 
     if(format) {
@@ -59,7 +59,7 @@ exports.formatLong = function(date, format) {
  *  
  * @returns {string} 
  */
-exports.formatShort = function(date, format={date: "Dmy", space:"" , zero:false}) {
+  function formatShort(date, format={date: "Dmy", space:"" , zero:false}) {
     
     /** 
      *Add an optional zero to a number less than ten 
@@ -118,7 +118,7 @@ exports.formatShort = function(date, format={date: "Dmy", space:"" , zero:false}
  * @returns {string}
  *  
  */
-exports.timeFormat = function(time,space) {
+  function timeFormat(time,space) {
     return time.getHours()+space+time.getMinutes()+space+time.getSeconds()
 }
 
@@ -129,7 +129,7 @@ exports.timeFormat = function(time,space) {
  *  
  * @returns {Object} {sec, min, hours, days}
  */
-exports.compareDates = function(date1,date2) {
+ function compareDates(date1,date2) {
     let ms = Math.abs(date1.getTime() - date2.getTime())
     let days = Math.trunc(ms /(1000*60*60*24))
     let hours = Math.trunc(ms /(1000*60*60)) - (24*days)
@@ -142,3 +142,5 @@ exports.compareDates = function(date1,date2) {
         days
     }
 }
+
+export {compareDates, formatLong, formatShort, timeFormat}

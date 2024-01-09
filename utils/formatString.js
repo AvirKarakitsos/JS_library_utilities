@@ -10,7 +10,7 @@
  * 
  * @returns {string} 
  */
-exports.titleUpperCase = function(title,option=false) {
+function titleUpperCase(title,option=false) {
     let excludes = ["le","la","les","de","des","l'","of"]
     let words = title.split(" ")
     let result = []
@@ -24,3 +24,5 @@ exports.titleUpperCase = function(title,option=false) {
 
     return result.join(" ")
 }
+
+export {titleUpperCase}
