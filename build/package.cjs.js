@@ -62,7 +62,7 @@ function formatLong(date, format) {
  *  
  * @returns {string} 
  */
-  function formatShort(date, format={date: "Dmy", space:"" , zero:false}) {
+  function formatShort(date, format=null) {
     
     /** 
      *Add an optional zero to a number less than ten 
@@ -70,47 +70,54 @@ function formatLong(date, format) {
      *   
      * @returns {string} 
     */
-    function getZero(nbr) {
-        if(nbr < 10) {
-            return "0"+nbr.toString()
-        }
+     function getZero(nbr) {
+        if(nbr < 10) return "0"+nbr.toString()
+        else return nbr
     }
-    
-    if(!format.space) format.space = "";
 
-    if(format.date) {
-        let arrFormat = format.date.split("");
+    let options = {
+        date: "Dmy",
+        space:" " , 
+        zero:false
+    };
+    
+    if(format) options = {...options, ...format};
+    
+    //if(!format.space) format.space = ""
+
+    //if(format.date) {
+        let arrFormat = options.date.split("");
         let formatDate = "";
 
         for (let element of arrFormat) {
             switch(element) {
                 case "y": 
-                    formatDate += format.space+date.getFullYear();
+                    formatDate += options.space+date.getFullYear();
                     break
                 case "m":
-                    if(format.zero) formatDate += format.space + getZero((date.getMonth() + 1));
-                    else formatDate += format.space + (date.getMonth() + 1);
+                    if(options.zero) formatDate += options.space + getZero((date.getMonth() + 1));
+                    else formatDate += options.space + (date.getMonth() + 1);
                     break
                 case "D": 
-                    if(format.zero) formatDate += format.space + getZero(date.getDate());
-                    else formatDate += format.space + date.getDate();
+                    if(options.zero) formatDate += options.space + getZero(date.getDate());
+                    else formatDate += options.space + date.getDate();
                     break
                 default:
                     throw Error("element not defined")
             }
         }
 
-        if(format.space === " ") return formatDate.trim()
-        else if(format.space !== ""){
-            let step = formatDate.split("");
-            step.shift();
-            let result = step.join("");
-            return result
+        if(options.space === " ") return formatDate.trim()
+        else if(options.space !== "") {
+            let split = formatDate.split(options.space);
+            let filter = split.filter((str) => str !== '');
+            let join = filter.join(options.space);
+            return join
         } else return formatDate
-    } else {
-        if(format.zero) return `${getZero(date.getDate())}${format.space}${getZero(date.getMonth()+1)}${format.space}${date.getFullYear()}`
-        else return `${date.getDate()}${format.space}${date.getMonth()+1}${format.space}${date.getFullYear()}`
-    }
+    // } else {
+    //     if(format.zero) return `${getZero(date.getDate())}${format.space}${getZero(date.getMonth()+1)}${format.space}${date.getFullYear()}`
+    //     else return `${date.getDate()}${format.space}${date.getMonth()+1}${format.space}${date.getFullYear()}`
+    // }
 }
 
 /**
@@ -376,27 +383,25 @@ class Statistics {
     /**
      * Return an SVG element of a box plot according to the data
      * @param {Summary} data
+     * @param {object} options
      * 
      * @returns {string}
      */
 
-    static boxPlot(data) {
+    static boxPlot(data, options={height: 300, width: 50}) {
         let result = this.summary(data);
 
         let range = result.Q3 - result.Q1;
         let min = Math.max(result.min, result.Q1 - 1.5*range);
         let max = Math.min(result.max, result.Q3 + 1.5*range);
-
         let long = max - min;
 
         let med = (result.median / long)*100;
         let q1 = (result.Q1 / long)*100;
         let q3 = (result.Q3 / long)*100;
-
         let widthBox = q3 - q1;
 
-
-       let element = `<svg width="300" height="50">
+       let element = `<svg width="${options.height}" height="${options.width}">
                         <rect x="${q1}%" y="0" width="${widthBox}%" height="100%" fill="none" stroke="black"/>
                         <line x1="0" y1="50%" x2="100%" y2="50%" stroke="black"/>
                         <line x1="0" y1="0" x2="0" y2="100%" stroke="black"/>

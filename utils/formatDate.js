@@ -59,7 +59,7 @@ function formatLong(date, format) {
  *  
  * @returns {string} 
  */
-  function formatShort(date, format={date: "Dmy", space:"" , zero:false}) {
+  function formatShort(date, format=null) {
     
     /** 
      *Add an optional zero to a number less than ten 
@@ -67,47 +67,54 @@ function formatLong(date, format) {
      *   
      * @returns {string} 
     */
-    function getZero(nbr) {
-        if(nbr < 10) {
-            return "0"+nbr.toString()
-        }
+     function getZero(nbr) {
+        if(nbr < 10) return "0"+nbr.toString()
+        else return nbr
+    }
+
+    let options = {
+        date: "Dmy",
+        space:" " , 
+        zero:false
     }
     
-    if(!format.space) format.space = ""
+    if(format) options = {...options, ...format}
+    
+    //if(!format.space) format.space = ""
 
-    if(format.date) {
-        let arrFormat = format.date.split("")
+    //if(format.date) {
+        let arrFormat = options.date.split("")
         let formatDate = ""
 
         for (let element of arrFormat) {
             switch(element) {
                 case "y": 
-                    formatDate += format.space+date.getFullYear()
+                    formatDate += options.space+date.getFullYear()
                     break
                 case "m":
-                    if(format.zero) formatDate += format.space + getZero((date.getMonth() + 1))
-                    else formatDate += format.space + (date.getMonth() + 1)
+                    if(options.zero) formatDate += options.space + getZero((date.getMonth() + 1))
+                    else formatDate += options.space + (date.getMonth() + 1)
                     break
                 case "D": 
-                    if(format.zero) formatDate += format.space + getZero(date.getDate())
-                    else formatDate += format.space + date.getDate()
+                    if(options.zero) formatDate += options.space + getZero(date.getDate())
+                    else formatDate += options.space + date.getDate()
                     break
                 default:
                     throw Error("element not defined")
             }
         }
 
-        if(format.space === " ") return formatDate.trim()
-        else if(format.space !== ""){
-            let step = formatDate.split("")
-            step.shift()
-            let result = step.join("")
-            return result
+        if(options.space === " ") return formatDate.trim()
+        else if(options.space !== "") {
+            let split = formatDate.split(options.space)
+            let filter = split.filter((str) => str !== '');
+            let join = filter.join(options.space)
+            return join
         } else return formatDate
-    } else {
-        if(format.zero) return `${getZero(date.getDate())}${format.space}${getZero(date.getMonth()+1)}${format.space}${date.getFullYear()}`
-        else return `${date.getDate()}${format.space}${date.getMonth()+1}${format.space}${date.getFullYear()}`
-    }
+    // } else {
+    //     if(format.zero) return `${getZero(date.getDate())}${format.space}${getZero(date.getMonth()+1)}${format.space}${date.getFullYear()}`
+    //     else return `${date.getDate()}${format.space}${date.getMonth()+1}${format.space}${date.getFullYear()}`
+    // }
 }
 
 /**

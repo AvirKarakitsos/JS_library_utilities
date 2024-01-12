@@ -88,27 +88,25 @@ class Statistics {
     /**
      * Return an SVG element of a box plot according to the data
      * @param {Summary} data
+     * @param {object} options
      * 
      * @returns {string}
      */
 
-    static boxPlot(data) {
+    static boxPlot(data, options={height: 300, width: 50}) {
         let result = this.summary(data)
 
         let range = result.Q3 - result.Q1
         let min = Math.max(result.min, result.Q1 - 1.5*range)
         let max = Math.min(result.max, result.Q3 + 1.5*range)
-
         let long = max - min
 
         let med = (result.median / long)*100
         let q1 = (result.Q1 / long)*100
         let q3 = (result.Q3 / long)*100
-
         let widthBox = q3 - q1
 
-
-       let element = `<svg width="300" height="50">
+       let element = `<svg width="${options.height}" height="${options.width}">
                         <rect x="${q1}%" y="0" width="${widthBox}%" height="100%" fill="none" stroke="black"/>
                         <line x1="0" y1="50%" x2="100%" y2="50%" stroke="black"/>
                         <line x1="0" y1="0" x2="0" y2="100%" stroke="black"/>
