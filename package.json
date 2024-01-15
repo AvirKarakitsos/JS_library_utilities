@@ -7,6 +7,8 @@
     "doc": "jsdoc -c jsdoc.json",
     "js": "rollup --config",
     "test": "jest",
+    "test:unit": "jest --testPathPattern=test",
+    "test:file": "jest -- test/formatString.test.js",
     "testCoverage": "jest --coverage"
   },
   "keywords": [],

@@ -14,7 +14,7 @@ var Utilities = (function (exports) {
   /**
    * This function will return a complete format of a date
    * @param {Date} date the date you want to format
-   * @param {string} [format] optional parameter with y:year, m:month, d:day, D:date
+   * @param {string} [format] optional parameter with y:year, m:month, d:day, w:weekday
    *  
    * @returns {string} 
    */
@@ -35,7 +35,7 @@ var Utilities = (function (exports) {
                   case "d": 
                       formatDate += " "+days[date.getDay()];
                       break
-                  case "D": 
+                  case "w": 
                       formatDate += " "+date.getDate();
                       break
                   default:
@@ -51,7 +51,7 @@ var Utilities = (function (exports) {
 
   /**
    * @typedef {Object} format
-   * @property {string} [date] "y:year, m:month; D:date"
+   * @property {string} [date] "y:year, m:month; w:weekday"
    * @property {string} [space] space between elements
    * @property {boolean} [zero] 
   */
@@ -77,48 +77,41 @@ var Utilities = (function (exports) {
       }
 
       let options = {
-          date: "Dmy",
+          date: "wmy",
           space:" " , 
           zero:false
       };
       
       if(format) options = {...options, ...format};
-      
-      //if(!format.space) format.space = ""
+    
+      let arrFormat = options.date.split("");
+      let formatDate = "";
 
-      //if(format.date) {
-          let arrFormat = options.date.split("");
-          let formatDate = "";
-
-          for (let element of arrFormat) {
-              switch(element) {
-                  case "y": 
-                      formatDate += options.space+date.getFullYear();
-                      break
-                  case "m":
-                      if(options.zero) formatDate += options.space + getZero((date.getMonth() + 1));
-                      else formatDate += options.space + (date.getMonth() + 1);
-                      break
-                  case "D": 
-                      if(options.zero) formatDate += options.space + getZero(date.getDate());
-                      else formatDate += options.space + date.getDate();
-                      break
-                  default:
-                      throw Error("element not defined")
-              }
+      for (let element of arrFormat) {
+          switch(element) {
+              case "y": 
+                  formatDate += options.space+date.getFullYear();
+                  break
+              case "m":
+                  if(options.zero) formatDate += options.space + getZero((date.getMonth() + 1));
+                  else formatDate += options.space + (date.getMonth() + 1);
+                  break
+              case "w": 
+                  if(options.zero) formatDate += options.space + getZero(date.getDate());
+                  else formatDate += options.space + date.getDate();
+                  break
+              default:
+                  throw Error("element not defined")
           }
+      }
 
-          if(options.space === " ") return formatDate.trim()
-          else if(options.space !== "") {
-              let split = formatDate.split(options.space);
-              let filter = split.filter((str) => str !== '');
-              let join = filter.join(options.space);
-              return join
-          } else return formatDate
-      // } else {
-      //     if(format.zero) return `${getZero(date.getDate())}${format.space}${getZero(date.getMonth()+1)}${format.space}${date.getFullYear()}`
-      //     else return `${date.getDate()}${format.space}${date.getMonth()+1}${format.space}${date.getFullYear()}`
-      // }
+      if(options.space === " ") return formatDate.trim()
+      else if(options.space !== "") {
+          let split = formatDate.split(options.space);
+          let filter = split.filter((str) => str !== '');
+          let join = filter.join(options.space);
+          return join
+      } else return formatDate
   }
 
   /**

@@ -1,6 +1,6 @@
 //@ts-check
 
-const { Proba, formatShort } = require("./build/package.cjs")
+const { Proba, formatShort, formatLong } = require("./build/package.cjs")
 
 const arr = [
     {name: "Arno", age: 33},
@@ -20,6 +20,7 @@ const a = new Date().toLocaleDateString()
 const b = new Date().toLocaleTimeString()
 
 const date = new Date()
+const birthday3 = new Date(1995, 11, 17);
 let res = formatShort(date, {date:"ymD"})
 
-console.log(res)
+console.log(formatShort(birthday3))
