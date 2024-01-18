@@ -25,7 +25,7 @@ class Proba {
 
     /**
      * Frequency of each unique element in an array
-     * @param {Array.<(number|string)>} arr sample used for the draws
+     * @param {Array.<(number|string)>} arr
      * 
      * @returns {Object}
      */
@@ -40,6 +40,28 @@ class Proba {
          },{})
     
          return obj
+    }
+
+    /**
+     * Frequency of each words in a sentance
+     * @param {string} sentence The input string containing words.
+     * 
+     * @returns {Map<string, number>}
+     */
+    static wordFrequency(sentence) {
+        let wordsSplited = sentence.toLowerCase().split(/\W+/)
+    
+        let result = new Map()
+        for(let word of wordsSplited) {
+            if(word === "") continue 
+            else if(result.get(word)) {    
+                result.set(word, result.get(word) + 1)
+            } else {
+                result.set(word, 1)
+            }
+        }
+    
+        return result
     }
 
     /**
