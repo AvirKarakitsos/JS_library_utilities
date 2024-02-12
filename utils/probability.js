@@ -1,6 +1,6 @@
 /**
- * Probability
  * @class Proba
+ * @description Several statics methods for withdraws.
  */
 
 class Proba {

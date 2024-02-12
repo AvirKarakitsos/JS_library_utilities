@@ -1,5 +1,5 @@
 /**
- * Build an array of items corresponding to the number of pages we want 
+ * Build an object composed of an array of element sand the number of pages needed 
  * @module Pagination
  */
 

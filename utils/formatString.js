@@ -1,6 +1,7 @@
 /**
- * Format a String object
+ * 
  * @module Format String
+ * @description Format a String object
  */
 
 /**

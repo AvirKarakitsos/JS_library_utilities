@@ -1,6 +1,8 @@
+
 /**
- * Descriptive statistics
+ * 
  * @class Statistics
+ * @description Descriptive statistics: statics methods that give you informations about an arrau of data.
  */
 
 class Statistics {
