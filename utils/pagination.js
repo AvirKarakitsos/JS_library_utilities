@@ -19,11 +19,8 @@
  * @returns {PageInfo}
  */
 function pagination(data, page, itemPerPage) {
-    let numberPages = data.length / itemPerPage
+    let numberPages = Math.ceil(data.length/itemPerPage)
     let copyData = null
-
-    if(!Number.isInteger(numberPages)) numberPages = Math.trunc(numberPages) + 1
-    
 
     if(!page) {
         copyData = data.slice(0,itemPerPage)
@@ -37,6 +34,18 @@ function pagination(data, page, itemPerPage) {
             return {data: copyData, numberPages}
         }
     }
+
+   // function chunk(arr,nbr) {
+    //     let result = []
+    //     let divided = Math.ceil(arr.length/nbr)
+    
+    //     for(let i=0; i< divided; i++) {
+    //         let copy = arr.slice(i*nbr,(i+1)*nbr)
+    //         result.push(copy)
+    //     }
+    
+    //     return result
+    // }
 }
 
 export {pagination}

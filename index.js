@@ -13,4 +13,4 @@ const arr = [
 
 const {Proba} = require('./build/package.cjs')
 
-console.log(Proba.wordFrequency("test 2 test"))
+console.log(Proba.wordFrequency())
