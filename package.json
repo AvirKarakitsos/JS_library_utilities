@@ -8,7 +8,7 @@
     "js": "rollup --config",
     "test": "jest",
     "test:unit": "jest --testPathPattern=test",
-    "test:file": "jest -- test/formatString.test.js",
+    "test:file": "jest -- test/primeNumber.test.js",
     "testCoverage": "jest --coverage"
   },
   "keywords": [],

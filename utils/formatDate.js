@@ -57,7 +57,7 @@ function formatLong(date, format) {
 */
 
 /**
- * formatShort will return a short fomat of a date. For example: 25/09/2023 with optional object {date: "Dmy", space:"/" , zero:true}
+ * formatShort will return a short format of a date. For example: 25/09/2023 with optional object {date: "Dmy", space:"/" , zero:true}
  * @param {Date} date date you want to format
  * @param {format} [format] optional parameter
  *  

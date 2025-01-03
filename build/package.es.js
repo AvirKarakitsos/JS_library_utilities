@@ -1,11 +1,15 @@
-/*! package v1.0.0 |  | Copyright 2024 | ISC licence */
+/*! package v1.0.0 |  | Copyright 2025 | ISC licence */
 const days = ["Dimanche","Lundi","Mardi","Mercredi","Jeudi","Vendredi", "Samedi"];
 
 const months = ["Janvier","Février","Mars","Avril","Mai","Juin","Juillet","Août","Septembre","Octobre","Novembre","Décembre"];
 
 /**
- * Format a Date object
+ * 
  * @module Format Date
+ * @description Format a Date object
+ * @version 1.0.0
+ * @author Arno Costoyannis
+ * 
  */
 
 /**
@@ -54,7 +58,7 @@ function formatLong(date, format) {
 */
 
 /**
- * formatShort will return a short fomat of a date. For example: 25/09/2023 with optional object {date: "Dmy", space:"/" , zero:true}
+ * formatShort will return a short format of a date. For example: 25/09/2023 with optional object {date: "Dmy", space:"/" , zero:true}
  * @param {Date} date date you want to format
  * @param {format} [format] optional parameter
  *  
@@ -145,8 +149,9 @@ function formatLong(date, format) {
 }
 
 /**
- * Format a String object
+ * 
  * @module Format String
+ * @description Format a String object
  */
 
 /**
@@ -172,7 +177,45 @@ function titleUpperCase(title,option=false) {
 }
 
 /**
- * Build an array of items corresponding to the number of pages we want 
+ * 
+ * @class Prime Numbers
+ * @description Methods for testing if a number is prime 
+ */
+
+class PrimeNumber {
+    /**
+     * Calcul the sum of an array
+     * @param {number[]} arr
+     * 
+     * @returns {number}
+     */
+    static listOfPrime(nbr) {
+        let result = [];
+        let deleteValue = new Set();
+
+        for (let i=2; i<nbr;i++) {
+
+            if(!deleteValue.has(i)) {
+                let k=2;
+                let multiple = k*i;
+                
+                while(multiple < nbr) {
+                    deleteValue.add(multiple);
+                    k=k+1;
+                    multiple = i*k;
+                }
+                
+                result.push(i);
+            }
+            
+        }
+
+        return result
+    }
+}
+
+/**
+ * Build an object composed of an array of element sand the number of pages needed 
  * @module Pagination
  */
 
@@ -192,11 +235,8 @@ function titleUpperCase(title,option=false) {
  * @returns {PageInfo}
  */
 function pagination(data, page, itemPerPage) {
-    let numberPages = data.length / itemPerPage;
+    let numberPages = Math.ceil(data.length/itemPerPage);
     let copyData = null;
-
-    if(!Number.isInteger(numberPages)) numberPages = Math.trunc(numberPages) + 1;
-    
 
     if(!page) {
         copyData = data.slice(0,itemPerPage);
@@ -210,11 +250,120 @@ function pagination(data, page, itemPerPage) {
             return {data: copyData, numberPages}
         }
     }
+
+   // function chunk(arr,nbr) {
+    //     let result = []
+    //     let divided = Math.ceil(arr.length/nbr)
+    
+    //     for(let i=0; i< divided; i++) {
+    //         let copy = arr.slice(i*nbr,(i+1)*nbr)
+    //         result.push(copy)
+    //     }
+    
+    //     return result
+    // }
 }
 
 /**
- * Descriptive statistics
+ * @class Proba
+ * @description Several statics methods for withdraws.
+ */
+
+class Proba {
+    /**
+     * Draw n times with replacement
+     * @param {Array.<number|string>} arr sample used for the draws
+     * @param {Number} n number of draws
+     * 
+     * @returns {Array.<number|string>}
+     */
+    static withReplacement(arr, n) {
+        let result = [];
+        let indice = null;
+        
+        for(let i=0; i<n; i++) {
+            indice = Math.floor(Math.random() * arr.length);
+            result.push(arr[indice]);
+        }
+    
+        return result
+    }
+
+    /**
+     * Frequency of each unique element in an array
+     * @param {Array.<(number|string)>} arr
+     * 
+     * @returns {Object}
+     */
+    static frequency(arr) {
+        let obj = arr.reduce((total,current)=> {
+            if(total[current]) {
+             total[current] = ++total[current];
+            } else {
+             total[current] = 1;
+            }
+            return total
+         },{});
+    
+         return obj
+    }
+
+    /**
+     * Frequency of each words in a sentance
+     * @param {string} sentence The input string containing words.
+     * 
+     * @returns {Map<string, number>}
+     */
+    static wordFrequency(sentence) {
+        let wordsSplited = sentence.toLowerCase().split(/\W+/);
+    
+        let result = new Map();
+        for(let word of wordsSplited) {
+            if(word === "") continue 
+            else if(result.get(word)) {    
+                result.set(word, result.get(word) + 1);
+            } else {
+                result.set(word, 1);
+            }
+        }
+    
+        return result
+    }
+
+    /**
+     * Draw without replacement
+     * @param {Array.<(number|string)>} arr sample used for the draw
+     * @param {Number} draw draw n elements simultaneously 
+     * 
+     * @returns {Array.<(number|string)>}
+     */
+    static withoutReplacement(arr,draw=null) {
+        if(draw > arr.length) {
+            throw Error("Second argument must be less than the length of the array")
+        }
+    
+        let size = null;
+        let copy = [...arr];
+        let result = [];
+        let indice = null;
+        
+        if((draw === null || (draw === 0))) size = arr.length;
+        else size = draw;
+    
+        for(let i=0; i<size; i++) {
+            indice = Math.floor(Math.random() * copy.length);
+            result.push(copy[indice]);
+            copy.splice(indice,1);
+        }
+    
+        return result
+    }
+}
+
+/**
+ * 
  * @class Statistics
+ * @description Descriptive statistics: statics methods that give you informations about an arrau of data.
  */
 
 class Statistics {
@@ -330,100 +479,4 @@ class Statistics {
     }
 }
 
-/**
- * Probability
- * @class Proba
- */
-
-class Proba {
-    /**
-     * Draw n times with replacement
-     * @param {Array.<number|string>} arr sample used for the draws
-     * @param {Number} n number of draws
-     * 
-     * @returns {Array.<number|string>}
-     */
-    static withReplacement(arr, n) {
-        let result = [];
-        let indice = null;
-        
-        for(let i=0; i<n; i++) {
-            indice = Math.floor(Math.random() * arr.length);
-            result.push(arr[indice]);
-        }
-    
-        return result
-    }
-
-    /**
-     * Frequency of each unique element in an array
-     * @param {Array.<(number|string)>} arr
-     * 
-     * @returns {Object}
-     */
-    static frequency(arr) {
-        let obj = arr.reduce((total,current)=> {
-            if(total[current]) {
-             total[current] = ++total[current];
-            } else {
-             total[current] = 1;
-            }
-            return total
-         },{});
-    
-         return obj
-    }
-
-    /**
-     * Frequency of each words in a sentance
-     * @param {string} sentence The input string containing words.
-     * 
-     * @returns {Map<string, number>}
-     */
-    static wordFrequency(sentence) {
-        let wordsSplited = sentence.toLowerCase().split(/\W+/);
-    
-        let result = new Map();
-        for(let word of wordsSplited) {
-            if(word === "") continue 
-            else if(result.get(word)) {    
-                result.set(word, result.get(word) + 1);
-            } else {
-                result.set(word, 1);
-            }
-        }
-    
-        return result
-    }
-
-    /**
-     * Draw without replacement
-     * @param {Array.<(number|string)>} arr sample used for the draw
-     * @param {Number} draw draw n elements simultaneously 
-     * 
-     * @returns {Array.<(number|string)>}
-     */
-    static withoutReplacement(arr,draw=null) {
-        if(draw > arr.length) {
-            throw Error("Second argument must be less than the length of the array")
-        }
-    
-        let size = null;
-        let copy = [...arr];
-        let result = [];
-        let indice = null;
-        
-        if((draw === null || (draw === 0))) size = arr.length;
-        else size = draw;
-    
-        for(let i=0; i<size; i++) {
-            indice = Math.floor(Math.random() * copy.length);
-            result.push(copy[indice]);
-            copy.splice(indice,1);
-        }
-    
-        return result
-    }
-}
-
-export { Proba, Statistics, compareDates, formatLong, formatShort, pagination, timeFormat, titleUpperCase };
+export { PrimeNumber, Proba, Statistics, compareDates, formatLong, formatShort, pagination, timeFormat, titleUpperCase };

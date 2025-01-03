@@ -1,4 +1,4 @@
-/*! package v1.0.0 |  | Copyright 2024 | ISC licence */
+/*! package v1.0.0 |  | Copyright 2025 | ISC licence */
 var Utilities = (function (exports) {
   'use strict';
 
@@ -7,8 +7,12 @@ var Utilities = (function (exports) {
   const months = ["Janvier","Février","Mars","Avril","Mai","Juin","Juillet","Août","Septembre","Octobre","Novembre","Décembre"];
 
   /**
-   * Format a Date object
+   * 
    * @module Format Date
+   * @description Format a Date object
+   * @version 1.0.0
+   * @author Arno Costoyannis
+   * 
    */
 
   /**
@@ -57,7 +61,7 @@ var Utilities = (function (exports) {
   */
 
   /**
-   * formatShort will return a short fomat of a date. For example: 25/09/2023 with optional object {date: "Dmy", space:"/" , zero:true}
+   * formatShort will return a short format of a date. For example: 25/09/2023 with optional object {date: "Dmy", space:"/" , zero:true}
    * @param {Date} date date you want to format
    * @param {format} [format] optional parameter
    *  
@@ -148,8 +152,59 @@ var Utilities = (function (exports) {
   }
 
   /**
-   * Format a String object
+   * Build an object composed of an array of element sand the number of pages needed 
+   * @module Pagination
+   */
+
+  /**
+   * @typedef {Object} PageInfo
+   * @property {Array} data
+   * @property {number} numberPages - Number of pages
+   * 
+   */
+
+  /**
+   * Return the data corresponding of the page argument. It contains itemPerPage elements
+   * @param {Array} data 
+   * @param {number} page 
+   * @param {number} itemPerPage
+   * 
+   * @returns {PageInfo}
+   */
+  function pagination(data, page, itemPerPage) {
+      let numberPages = Math.ceil(data.length/itemPerPage);
+      let copyData = null;
+
+      if(!page) {
+          copyData = data.slice(0,itemPerPage);
+          return {data: copyData, numberPages}
+      } else {
+          if(page === numberPages) {
+              copyData = data.slice(itemPerPage*page-itemPerPage);
+              return {data: copyData, numberPages}
+          } else {
+              copyData = data.slice(itemPerPage*page-itemPerPage,itemPerPage*page);
+              return {data: copyData, numberPages}
+          }
+      }
+
+     // function chunk(arr,nbr) {
+      //     let result = []
+      //     let divided = Math.ceil(arr.length/nbr)
+      
+      //     for(let i=0; i< divided; i++) {
+      //         let copy = arr.slice(i*nbr,(i+1)*nbr)
+      //         result.push(copy)
+      //     }
+      
+      //     return result
+      // }
+  }
+
+  /**
+   * 
    * @module Format String
+   * @description Format a String object
    */
 
   /**
@@ -175,49 +230,8 @@ var Utilities = (function (exports) {
   }
 
   /**
-   * Build an array of items corresponding to the number of pages we want 
-   * @module Pagination
-   */
-
-  /**
-   * @typedef {Object} PageInfo
-   * @property {Array} data
-   * @property {number} numberPages - Number of pages
-   * 
-   */
-
-  /**
-   * Return the data corresponding of the page argument. It contains itemPerPage elements
-   * @param {Array} data 
-   * @param {number} page 
-   * @param {number} itemPerPage
-   * 
-   * @returns {PageInfo}
-   */
-  function pagination(data, page, itemPerPage) {
-      let numberPages = data.length / itemPerPage;
-      let copyData = null;
-
-      if(!Number.isInteger(numberPages)) numberPages = Math.trunc(numberPages) + 1;
-      
-
-      if(!page) {
-          copyData = data.slice(0,itemPerPage);
-          return {data: copyData, numberPages}
-      } else {
-          if(page === numberPages) {
-              copyData = data.slice(itemPerPage*page-itemPerPage);
-              return {data: copyData, numberPages}
-          } else {
-              copyData = data.slice(itemPerPage*page-itemPerPage,itemPerPage*page);
-              return {data: copyData, numberPages}
-          }
-      }
-  }
-
-  /**
-   * Probability
    * @class Proba
+   * @description Several statics methods for withdraws.
    */
 
   class Proba {
@@ -312,8 +326,47 @@ var Utilities = (function (exports) {
   }
 
   /**
-   * Descriptive statistics
+   * 
+   * @class Prime Numbers
+   * @description Methods for testing if a number is prime 
+   */
+
+  class PrimeNumber {
+      /**
+       * Calcul the sum of an array
+       * @param {number[]} arr
+       * 
+       * @returns {number}
+       */
+      static listOfPrime(nbr) {
+          let result = [];
+          let deleteValue = new Set();
+
+          for (let i=2; i<nbr;i++) {
+
+              if(!deleteValue.has(i)) {
+                  let k=2;
+                  let multiple = k*i;
+                  
+                  while(multiple < nbr) {
+                      deleteValue.add(multiple);
+                      k=k+1;
+                      multiple = i*k;
+                  }
+                  
+                  result.push(i);
+              }
+              
+          }
+
+          return result
+      }
+  }
+
+  /**
+   * 
    * @class Statistics
+   * @description Descriptive statistics: statics methods that give you informations about an arrau of data.
    */
 
   class Statistics {
@@ -429,6 +482,7 @@ var Utilities = (function (exports) {
       }
   }
 
+  exports.PrimeNumber = PrimeNumber;
   exports.Proba = Proba;
   exports.Statistics = Statistics;
   exports.compareDates = compareDates;
