@@ -151,34 +151,6 @@ function formatLong(date, format) {
 }
 
 /**
- * 
- * @module Format String
- * @description Format a String object
- */
-
-/**
- * Transform the first letter of each word into uppercase
- * @param {string} title title to transform
- * @param {boolean} [option] exclude a list of word : ["le","la","les","de","des","l'","of"]
- * 
- * @returns {string} 
- */
-function titleUpperCase(title,option=false) {
-    let excludes = ["le","la","les","de","des","l'","of"];
-    let words = title.split(" ");
-    let result = [];
-    words.map((word,index) => {
-        let transform = "";
-        option ?
-            ((excludes.includes(word)) && (index !== 0)) ? transform = word : transform = word.toUpperCase()[0]+word.slice(1)
-           : transform = word.toUpperCase()[0]+word.slice(1);
-        result.push(transform);
-    });
-
-    return result.join(" ")
-}
-
-/**
  * Build an object composed of an array of element sand the number of pages needed 
  * @module Pagination
  */
@@ -230,39 +202,84 @@ function pagination(data, page, itemPerPage) {
 
 /**
  * 
+ * @module Format String
+ * @description Format a String object
+ */
+
+/**
+ * Transform the first letter of each word into uppercase
+ * @param {string} title title to transform
+ * @param {boolean} [option] exclude a list of word : ["le","la","les","de","des","l'","of"]
+ * 
+ * @returns {string} 
+ */
+function titleUpperCase(title,option=false) {
+    let excludes = ["le","la","les","de","des","l'","of"];
+    let words = title.split(" ");
+    let result = [];
+    words.map((word,index) => {
+        let transform = "";
+        option ?
+            ((excludes.includes(word)) && (index !== 0)) ? transform = word : transform = word.toUpperCase()[0]+word.slice(1)
+           : transform = word.toUpperCase()[0]+word.slice(1);
+        result.push(transform);
+    });
+
+    return result.join(" ")
+}
+
+/**
+ *
  * @class Prime Numbers
- * @description Methods for testing if a number is prime 
+ * @description Methods for testing if a number is prime
  */
 
 class PrimeNumber {
     /**
-     * Calcul the sum of an array
-     * @param {number[]} arr
-     * 
-     * @returns {number}
+     * Return an array of prime numbers less than a variable nbr
+     * @param {number} nbr
+     *
+     * @returns {number[]}
      */
     static listOfPrime(nbr) {
         let result = [];
         let deleteValue = new Set();
 
-        for (let i=2; i<=nbr;i++) {
+        for (let i = 2; i <= nbr; i++) {
+            if (!deleteValue.has(i)) {
+                let k = 2;
+                let multiple = k * i;
 
-            if(!deleteValue.has(i)) {
-                let k=2;
-                let multiple = k*i;
-                
-                while(multiple <= nbr) {
+                while (multiple <= nbr) {
                     deleteValue.add(multiple);
-                    k=k+1;
-                    multiple = i*k;
+                    k = k + 1;
+                    multiple = i * k;
                 }
-                
+
                 result.push(i);
             }
-            
         }
 
-        return result
+        return result;
+    }
+    /**
+     * Test if a number is prime or not
+     * @param {number} p
+     *
+     * @returns {boolean}
+     */
+    static isPrime(p) {
+        if (p === 0 || p === 1) return false;
+        if (p === 2 || p === 3) return true;
+
+        let testNumber = Math.floor(Math.sqrt(p));
+        const list = PrimeNumber.listOfPrime(testNumber);
+
+        for (let i = 0; i < list.length; i++) {
+            if (p % list[i] === 0) return false;
+        }
+
+        return true;
     }
 }
 
