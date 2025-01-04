@@ -245,13 +245,13 @@ class PrimeNumber {
         let result = [];
         let deleteValue = new Set();
 
-        for (let i=2; i<nbr;i++) {
+        for (let i=2; i<=nbr;i++) {
 
             if(!deleteValue.has(i)) {
                 let k=2;
                 let multiple = k*i;
                 
-                while(multiple < nbr) {
+                while(multiple <= nbr) {
                     deleteValue.add(multiple);
                     k=k+1;
                     multiple = i*k;

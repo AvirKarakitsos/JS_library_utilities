@@ -152,6 +152,72 @@ var Utilities = (function (exports) {
   }
 
   /**
+   * 
+   * @module Format String
+   * @description Format a String object
+   */
+
+  /**
+   * Transform the first letter of each word into uppercase
+   * @param {string} title title to transform
+   * @param {boolean} [option] exclude a list of word : ["le","la","les","de","des","l'","of"]
+   * 
+   * @returns {string} 
+   */
+  function titleUpperCase(title,option=false) {
+      let excludes = ["le","la","les","de","des","l'","of"];
+      let words = title.split(" ");
+      let result = [];
+      words.map((word,index) => {
+          let transform = "";
+          option ?
+              ((excludes.includes(word)) && (index !== 0)) ? transform = word : transform = word.toUpperCase()[0]+word.slice(1)
+             : transform = word.toUpperCase()[0]+word.slice(1);
+          result.push(transform);
+      });
+
+      return result.join(" ")
+  }
+
+  /**
+   * 
+   * @class Prime Numbers
+   * @description Methods for testing if a number is prime 
+   */
+
+  class PrimeNumber {
+      /**
+       * Calcul the sum of an array
+       * @param {number[]} arr
+       * 
+       * @returns {number}
+       */
+      static listOfPrime(nbr) {
+          let result = [];
+          let deleteValue = new Set();
+
+          for (let i=2; i<=nbr;i++) {
+
+              if(!deleteValue.has(i)) {
+                  let k=2;
+                  let multiple = k*i;
+                  
+                  while(multiple <= nbr) {
+                      deleteValue.add(multiple);
+                      k=k+1;
+                      multiple = i*k;
+                  }
+                  
+                  result.push(i);
+              }
+              
+          }
+
+          return result
+      }
+  }
+
+  /**
    * Build an object composed of an array of element sand the number of pages needed 
    * @module Pagination
    */
@@ -199,34 +265,6 @@ var Utilities = (function (exports) {
       
       //     return result
       // }
-  }
-
-  /**
-   * 
-   * @module Format String
-   * @description Format a String object
-   */
-
-  /**
-   * Transform the first letter of each word into uppercase
-   * @param {string} title title to transform
-   * @param {boolean} [option] exclude a list of word : ["le","la","les","de","des","l'","of"]
-   * 
-   * @returns {string} 
-   */
-  function titleUpperCase(title,option=false) {
-      let excludes = ["le","la","les","de","des","l'","of"];
-      let words = title.split(" ");
-      let result = [];
-      words.map((word,index) => {
-          let transform = "";
-          option ?
-              ((excludes.includes(word)) && (index !== 0)) ? transform = word : transform = word.toUpperCase()[0]+word.slice(1)
-             : transform = word.toUpperCase()[0]+word.slice(1);
-          result.push(transform);
-      });
-
-      return result.join(" ")
   }
 
   /**
@@ -321,44 +359,6 @@ var Utilities = (function (exports) {
               copy.splice(indice,1);
           }
       
-          return result
-      }
-  }
-
-  /**
-   * 
-   * @class Prime Numbers
-   * @description Methods for testing if a number is prime 
-   */
-
-  class PrimeNumber {
-      /**
-       * Calcul the sum of an array
-       * @param {number[]} arr
-       * 
-       * @returns {number}
-       */
-      static listOfPrime(nbr) {
-          let result = [];
-          let deleteValue = new Set();
-
-          for (let i=2; i<nbr;i++) {
-
-              if(!deleteValue.has(i)) {
-                  let k=2;
-                  let multiple = k*i;
-                  
-                  while(multiple < nbr) {
-                      deleteValue.add(multiple);
-                      k=k+1;
-                      multiple = i*k;
-                  }
-                  
-                  result.push(i);
-              }
-              
-          }
-
           return result
       }
   }
