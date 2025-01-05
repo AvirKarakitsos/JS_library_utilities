@@ -232,9 +232,9 @@ function pagination(data, page, itemPerPage) {
  * @description Methods for testing if a number is prime
  */
 
-class PrimeNumber {
+class Prime {
     /**
-     * Return an array of prime numbers less than a variable nbr
+     * Return an array of prime numbers less than a number
      * @param {number} nbr
      *
      * @returns {number[]}
@@ -271,7 +271,7 @@ class PrimeNumber {
         if (p === 2 || p === 3) return true;
 
         let testNumber = Math.floor(Math.sqrt(p));
-        const list = PrimeNumber.listOfPrime(testNumber);
+        const list = Prime.listOfPrime(testNumber);
 
         for (let i = 0; i < list.length; i++) {
             if (p % list[i] === 0) return false;
@@ -496,4 +496,4 @@ class Statistics {
     }
 }
 
-export { PrimeNumber, Proba, Statistics, compareDates, formatLong, formatShort, pagination, timeFormat, titleUpperCase };
+export { Prime, Proba, Statistics, compareDates, formatLong, formatShort, pagination, timeFormat, titleUpperCase };
